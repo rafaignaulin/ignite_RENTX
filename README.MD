@@ -13,3 +13,5 @@
 - Commit 04 - Started Chapter 03, configured docker image and docker-compose, configured dockerfile, configured typeorm (connections and migrations), configured docker-compose.yml, ormconfig.json, dockerfile, .dockerignore, /database/index.ts
 
 - Commit 05 - Created Specification migration, refactored use cases. Created User, user usecase, user controller, crypto password using bcrypt, concepts of hash, md5, implementation of jwt, middlewares implementation to ensure if user was authenticated.
+
+- Commit 06 - Create Car Module, create routes (List Cars, Create Car), created tests (TDD tests for each Use Case), created relations in database between Cars and Specifications, created Entity Cars(id, available, name, description, category_id...), created user seed, created admin middleware

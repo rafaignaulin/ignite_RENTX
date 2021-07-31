@@ -56,11 +56,12 @@
         "error",
         { "devDependencies": ["**/*.spec.js"] }
         ]
-
+  
     },
     "settings": {
         "import/resolver": {
           "typescript": {}
         }
       }
-}
+  }
+  
