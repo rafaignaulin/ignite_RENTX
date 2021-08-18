@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateSpecifications1624225473420 implements MigrationInterface {
+export class CreateCarImages1629056787500 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "specifications",
+        name: "cars_images",
         columns: [
           {
             name: "id",
@@ -12,11 +12,11 @@ export class CreateSpecifications1624225473420 implements MigrationInterface {
             isPrimary: true,
           },
           {
-            name: "name",
-            type: "varchar",
+            name: "car_id",
+            type: "uuid",
           },
           {
-            name: "description",
+            name: "image_name",
             type: "varchar",
           },
           {
@@ -25,11 +25,21 @@ export class CreateSpecifications1624225473420 implements MigrationInterface {
             default: "now()",
           },
         ],
+        foreignKeys: [
+          {
+            name: "FKImagesCar",
+            referencedTableName: "cars",
+            referencedColumnNames: ["id"],
+            columnNames: ["car_id"],
+            onDelete: "SET NULL",
+            onUpdate: "SET NULL",
+          },
+        ],
       })
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("specifications");
+    await queryRunner.dropTable("cars_images");
   }
 }
