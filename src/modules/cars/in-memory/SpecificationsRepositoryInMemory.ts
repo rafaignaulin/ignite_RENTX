@@ -22,6 +22,10 @@ export class SpecificationsRepositoryInMemory
     this.specifications.push(specification);
     return specification;
   }
+
+  async list(): Promise<Specification[]> {
+    return this.specifications;
+  }
   async findByName(name: string): Promise<Specification> {
     return this.specifications.find(
       (specification) => specification.name === name

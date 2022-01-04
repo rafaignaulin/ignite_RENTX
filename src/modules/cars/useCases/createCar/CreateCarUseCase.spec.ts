@@ -26,18 +26,17 @@ describe("CreateCar", () => {
   });
 
   it("should not be able to create a car with exists license plate", async () => {
-    expect(async () => {
-      await createCarUseCase.execute({
-        name: "Bentayga",
-        description: "High Luxury SUV",
-        daily_rate: 9900,
-        license_plate: "B3NTL3Y",
-        fine_amount: 1029.99,
-        brand: "Bentley",
-        category_id: "High Luxury SUV",
-      });
-
-      await createCarUseCase.execute({
+    await createCarUseCase.execute({
+      name: "Bentayga",
+      description: "High Luxury SUV",
+      daily_rate: 9900,
+      license_plate: "B3NTL3Y",
+      fine_amount: 1029.99,
+      brand: "Bentley",
+      category_id: "High Luxury SUV",
+    });
+    await expect(
+      createCarUseCase.execute({
         name: "Bentayga2",
         description: "High Luxury SUV",
         daily_rate: 9900,
@@ -45,8 +44,8 @@ describe("CreateCar", () => {
         fine_amount: 1029.99,
         brand: "Bentley",
         category_id: "High Luxury SUV",
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError("Car Already Exists"));
   });
 
   it("should not be able to create a car with available true by default", async () => {

@@ -4,48 +4,46 @@ import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { injectable, inject } from "tsyringe";
 
-interface IRequest{
+interface IRequest {
   email: string;
   password: string;
- }
+}
 
- interface IResponse{
-   user: {
-     name: string;
-     email: string;
-   },
-   token: string;
- }
+interface IResponse {
+  user: {
+    name: string;
+    email: string;
+  };
+  token: string;
+}
 
-
- @injectable()
+@injectable()
 export default class AuthenticateUserUseCase {
-
   constructor(
     @inject("UsersRepository")
     private usersRepository: IUsersRepository
-  ){}
+  ) {}
 
   async execute({ email, password }: IRequest): Promise<IResponse> {
-    //Usuario existe
-    const user = await this.usersRepository.findByEmail(email)
+    // Usuario existe
+    const user = await this.usersRepository.findByEmail(email);
 
-    if(!user) {
+    if (!user) {
       throw new AppError("Email or password incorrect!");
     }
 
-    //Senha esta correta
+    // Senha esta correta
     const passwordMatch = await compare(password, user.password);
 
-    if(!passwordMatch){
+    if (!passwordMatch) {
       throw new AppError("Email or password incorrect!");
     }
 
-    //Gerar JWT
+    // Gerar JWT
 
     const token = sign({}, "ea1f526b90e6a8808907170ea8b77d62", {
       subject: user.id,
-      expiresIn: "1d"
+      expiresIn: "1d",
     });
 
     const tokenReturn: IResponse = {
@@ -53,10 +51,9 @@ export default class AuthenticateUserUseCase {
       user: {
         name: user.name,
         email: user.email,
-      }
-    }
+      },
+    };
 
     return tokenReturn;
-
   }
 }

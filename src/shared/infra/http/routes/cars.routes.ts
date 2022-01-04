@@ -3,7 +3,8 @@ import upload from "@config/upload";
 import multer from "multer";
 
 import { CreateCarController } from "@modules/cars/useCases/createCar/CreateCarController";
-import { CreateSpecificationController } from "@modules/cars/useCases/createSpecification/createSpecificationController";
+import { CreateCarSpecificationController } from "@modules/cars/useCases/createCarSpecification/CreateCarSpecificationController";
+
 import { ListAvailableCarsController } from "@modules/cars/useCases/listAvailableCars/ListAvailableCarsController";
 import { UploadCarImagesController } from "@modules/cars/useCases/uploadCarImages/UploadCarImagesController";
 
@@ -14,7 +15,7 @@ export const carsRoutes = Router();
 
 const createCarController = new CreateCarController();
 const listAvailableController = new ListAvailableCarsController();
-const createCarSpecificationController = new CreateSpecificationController();
+const createCarSpecificationController = new CreateCarSpecificationController();
 const uploadCarImageController = new UploadCarImagesController();
 
 const uploadCarImage = multer(upload.upload("./tmp/carImage"));

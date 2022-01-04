@@ -4,13 +4,20 @@ import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepositor
 import { User } from "../entities/User";
 
 export class UsersRepository implements IUsersRepository {
-  private repository: Repository<User>
+  private repository: Repository<User>;
 
   constructor() {
     this.repository = getRepository(User);
   }
 
-  async create({name, password, email, driver_license, id, avatar}: ICreateUserDTO): Promise<void> {
+  async create({
+    name,
+    password,
+    email,
+    driver_license,
+    id,
+    avatar,
+  }: ICreateUserDTO): Promise<void> {
     const user = this.repository.create({
       name,
       password,
@@ -18,12 +25,12 @@ export class UsersRepository implements IUsersRepository {
       driver_license,
       id,
       avatar,
-    })
+    });
 
     await this.repository.save(user);
   }
   async findByEmail(email: string): Promise<User> {
-    const user = await this.repository.findOne({email});
+    const user = await this.repository.findOne({ email });
 
     return user;
   }
@@ -32,6 +39,4 @@ export class UsersRepository implements IUsersRepository {
     const user = await this.repository.findOne(id);
     return user;
   }
-
-
 }
